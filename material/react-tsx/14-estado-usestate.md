@@ -15,10 +15,11 @@ const Contador = () => {
     <div>
       <p>Count: {count}</p>
       <button onClick={() => setCount((c) => c + 1)}>+1</button>
-      <input value={nombre} onChange={(e) => setNombre(e.target.value)} />
+      <input value={nombre} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNombre(e.target.value)} />
     </div>
   );
 };
+
 ```
 
 Para objetos o arrays, define una interfaz:

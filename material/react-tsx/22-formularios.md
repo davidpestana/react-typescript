@@ -7,8 +7,9 @@
 **Controlados**: el valor vive en estado y se actualiza con `onChange`.
 
 ```tsx
-const [email, setEmail] = useState('');
-<input value={email} onChange={(e) => setEmail(e.target.value)} />
+const [email, setEmail] = useState<string>('');
+<input value={email} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} />
+
 ```
 
 **No controlados**: se usa `useRef` y se lee el valor cuando hace falta (p. ej. en `onSubmit`).

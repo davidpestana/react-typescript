@@ -25,16 +25,18 @@ def section_to_sort_key(section_id: str):
 
 
 def section_to_filename_prefix(section_id: str) -> str:
-    """7.1 -> 07-01, 28.2.1 -> 28-02-01, 1 -> 01."""
+    """7.1 -> 07-01, 28.2.1 -> 28-02-01, 1 -> 01-00, 7 -> 07-00 (capítulo sin subsección)."""
     parts = section_id.replace(",", ".").split(".")
     num_parts = [p.strip() for p in parts if p.strip().replace("-", "").isdigit()]
     if not num_parts:
         return section_id.replace(".", "-")
-    # Primer número con cero a la izquierda si es un solo dígito
     first = num_parts[0]
     if len(first) == 1:
         first = first.zfill(2)
     rest = [p.zfill(2) if len(p) <= 2 else p for p in num_parts[1:]]
+    # Capítulo sin subsección: añadir -00 para orden en disco (07-00 antes de 07-01)
+    if not rest:
+        rest = ["00"]
     return "-".join([first] + rest)
 
 

@@ -8,7 +8,7 @@ Hooks que encapsulan lógica reutilizable. Deben cumplir las reglas de los Hooks
 
 ```tsx
 function useToggle(initial = false): [boolean, () => void] {
-  const [value, setValue] = useState(initial);
+  const [value, setValue] = useState<boolean>(initial);
   const toggle = useCallback(() => setValue((v) => !v), []);
   return [value, toggle];
 }

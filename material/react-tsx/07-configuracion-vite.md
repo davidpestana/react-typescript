@@ -4,7 +4,7 @@
 
 ---
 
-En este curso usamos **Vite** en lugar de Create React App o Webpack manual.
+En este curso usamos **Vite** como opción principal. El template **react-ts** incluye TypeScript, `tsconfig.json` y archivos `.tsx` por defecto. Otras opciones con TS: **Create React App** (`--template typescript`) o el **lab 8.1** (Webpack + Babel + TypeScript desde 0) en el material completo.
 
 ## Crear proyecto
 
