@@ -8,66 +8,40 @@
 
 ---
 
-Las propiedades que reciben los componentes se pueden validar para asegurarnos de que nuestros
-componentes reciben los tipos de datos esperados.
+En React clásico (sin TypeScript) se usaba la librería **prop-types** para validar en tiempo de
+ejecución los tipos de las props de un componente. En este curso, al trabajar con **TypeScript**,
+esa validación se hace en **tiempo de compilación** mediante interfaces y tipos, así que **no vamos
+a usar PropTypes en nuestros proyectos**.
 
-Antiguamente se podían validar los tipos de las propiedades con la librería prop-
- types, pero esto se deprecó, y ya no funciona. Ahora habría que utilizar
-TypeScript para las validaciones de tipos.
+## PropTypes vs TypeScript
 
-Algunas de las validaciones que podemos utilizar son:
+La idea detrás de PropTypes era parecida a lo que hacemos con los tipos en TypeScript:
 
-Validador Descripción
+- **PropTypes.string** ⟶ `prop: string`
+- **PropTypes.number** ⟶ `prop: number`
+- **PropTypes.bool** ⟶ `prop: boolean`
+- **PropTypes.object** ⟶ `prop: Record<string, unknown>`
+- **PropTypes.array** ⟶ `prop: unknown[]`
+- **PropTypes.func** ⟶ `prop: () => void`
+- **PropTypes.oneOfType([PropTypes.number, PropTypes.string])** ⟶ `prop: number | string`
+- **PropTypes.arrayOf(PropTypes.string)** ⟶ `prop: string[]`
+- **PropTypes.objectOf(PropTypes.number)** ⟶ `prop: Record<string, number>`
+- **PropTypes.shape({ nombre: PropTypes.string, edad: PropTypes.number })** ⟶
+  `prop: { nombre: string; edad: number }`
+- **PropTypes.oneOf(['Gato', 'Perro', 'Canario'])** ⟶ `prop: 'Gato' | 'Perro' | 'Canario'`
 
-PropTypes.isRequired La propiedad tiene que ser obligatoria
+En PropTypes, si una validación no se cumple se muestra un **warning en consola** pero la aplicación
+sigue funcionando (aunque con datos erróneos). En TypeScript, en cambio, el error se detecta antes
+de ejecutar el código.
 
-PropTypes.string La propiedad tiene que ser un string
+## Qué hacemos en este curso
 
-PropTypes.number La propiedad tiene que ser un número
+En los ejemplos y labs de este material:
 
-PropTypes.bool La propiedad tiene que ser un booleano
+- **No instalamos** la dependencia `prop-types`.
+- **No definimos** `MiComponente.propTypes`.
+- Usamos **interfaces o types** para describir las props, como en el capítulo de
+  [Propiedades (props) con tipos](../react-tsx/10-props-con-tipos.md) del material resumido.
 
-PropTypes.object La propiedad tiene que ser un objeto
-
-PropTypes.array La propiedad tiene que ser un array
-
-PropTypes.func La propiedad tiene que ser una función
-
-PropTypes.oneOfType([PropTypes.number, La propiedad tiene que ser de uno de esos tipos
-PropTypes.string])
-
-PropTypes.arrayOf(PropTypes.string) La propiedad tiene que ser un array de string
-
-PropTypes.objectOf(PropTypes.number) La propiedad tiene que ser un objeto cuyos
-atributos sean números
-
-PropTypes.shape({nombre: PropTypes.string, La propiedad tiene que ser un objeto que tiene
-edad: PropTypes.number}) que tener un atributo nombre de tipo string y un
-atributo edad de tipo número
-
-PropTypes.oneOf(['Gato', 'Perro', 'Canario']) La propiedad tiene que ser uno de los valores del
-enumerado
-
-Cuando una validación no se cumple, se muestra un warning por la consola, y la
-aplicación seguirá funcionando aunque esto no quiere decir que funcione como se
-espera ya que puede ser que el tipo de dato no sea el esperado.
-
-Para utilizar las validaciones necesitamos la siguiente dependencia:
-
-```tsx
-$ npm install --save prop-types
-```
-Estas validaciones se asignan a la propiedad propTypes del componente:
-
-```tsx
-import PropTypes from 'prop-types';
-```
-// ...
-
-MiComponente.propTypes = {
-```tsx
-  miPropiedad: PropTypes.string.isRequired
-}
-```
-Las proptypes también nos sirven de documentación, ya que podremos ver en todo momento que
-propiedades puede recibir un componente, si son obligatorias u opcionales, el tipo…
+De esta forma, mantenemos una única fuente de verdad para los tipos (TypeScript) y evitamos
+duplicar la información entre PropTypes y las definiciones de tipos.

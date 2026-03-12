@@ -102,7 +102,7 @@ def main():
 
     # README con índice
     readme_lines = [
-        "# React con TypeScript — Contenido completo (manual)",
+        "# React con TypeScript",
         "",
         "Manual en Markdown con **105 capítulos**: desde qué es React hasta React Router, pasando por Hooks, Redux y TypeScript/TSX. Cada archivo tiene navegación anterior/siguiente.",
         "",
