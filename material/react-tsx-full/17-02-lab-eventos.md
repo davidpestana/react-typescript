@@ -30,7 +30,7 @@ navegador hable.
 
 ```tsx
 const App = () => {
-  const handleClick = () => {
+  const handleClick = () => {}
 
     return (
       <div>

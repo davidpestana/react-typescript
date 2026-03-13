@@ -26,9 +26,9 @@ componentes o etiquetas.
 ```tsx
 if (logueado) {
   return <button>Logout</button>
-```
+
 } else {
-```tsx
+
   return <button>Login</button>
 }
 ```
