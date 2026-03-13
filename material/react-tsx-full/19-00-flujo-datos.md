@@ -4,7 +4,7 @@
 
 ---
 
-[← Índice](README.md) | [← Anterior: 18.1. Lab Estado](18-01-lab-estado.md) | [Siguiente: 20. Ciclo Vida →](20-00-ciclo-vida.md)
+[← Índice](README.md) | [← Anterior: 18.1. Lab Estado](18-01-lab-estado.md) | [Siguiente: 19.1. Lab Flujo Datos →](19-01-lab-flujo-datos.md)
 
 ---
 
