@@ -10,43 +10,57 @@
 
 Los eventos disponibles son los siguientes:
 
-Table 1. Eventos táctiles
+### Eventos táctiles
 
-onTouchStart onTouchMove onTouchEnd onTouchCancel
+- onTouchStart
+- onTouchMove
+- onTouchEnd
+- onTouchCancel
 
-Table 2. Eventos de ratón
+### Eventos de ratón
 
-onClick onDoubleClick onMouseDown
+- onClick
+- onDoubleClick
+- onMouseDown
+- onMouseUp
+- onMouseOver
+- onMouseOut
+- onMouseEnter
+- onMouseLeave
+- onMouseMove
+- onContextMenu
 
-onMouseUp onMouseOver onMouseOut
+### Eventos de arrastrar y soltar
 
-onMouseEnter onMouseLeave onMouseMove
+- onDrag
+- onDragEnter
+- onDragLeave
+- onDragExit
+- onDragStart
+- onDragEnd
+- onDragOver
+- onDrop
 
-onContextMenu
+### Eventos de teclado
 
-Table 3. Eventos de arrastrar y soltar
+- onKeyDown
+- onKeyUp
+- onKeyPress
 
-onDrag onDragEnter onDragLeave
+### Eventos de foco y formularios
 
-onDragExit onDragStart onDragEnd
+- onFocus
+- onBlur
+- onChange
+- onInput
+- onSubmit
 
-onDragOver onDrop
+### Otros eventos
 
-Table 4. Eventos de teclado
+- onCopy
+- onCut
+- onPaste
+- onScroll
+- onWheel
 
-onKeyDown onKeyUp onKeyPress
-
-Table 5. Eventos de foco y formularios
-
-onFocus onBlur onChange
-
-onInput onSubmit
-
-Table 6. Otros eventos
-
-onCopy onCut onPaste
-
-onScroll onWheel
-
-Podemos encontrar más eventos disponibles en https://es.reactjs.org/docs/events.html#supported-
-events.
+Podemos encontrar más eventos disponibles en https://es.reactjs.org/docs/events.html#supported-events.
