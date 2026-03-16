@@ -379,3 +379,52 @@ InfoUsuario,
 
 export default App
 ```
+
+---
+
+## Versión alternativa con componente funcional
+
+Todo lo anterior lo hemos hecho con un HOC basado en **clases**.  
+Si quieres usar solo **componentes funcionales**, podemos reescribir `withData` usando `useState` y
+`useEffect`.
+
+**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.js`
+
+```tsx
+import { useEffect, useState } from 'react'
+
+const withData = (WrappedCmp, url, Loader = <p>Loading...</p>) => {
+  const WithData = (props) => {
+    const [data, setData] = useState(null)
+    const [cargandoDatos, setCargandoDatos] = useState(true)
+
+    useEffect(() => {
+      const fetchData = async () => {
+        const response = await fetch(url)
+        const datos = await response.json()
+
+        setTimeout(() => {
+          setData(datos)
+          setCargandoDatos(false)
+        }, 1400)
+      }
+
+      fetchData()
+    }, [])
+
+    return (
+      <>
+        {cargandoDatos ? Loader : <WrappedCmp {...props} data={data} />}
+      </>
+    )
+  }
+
+  return WithData
+}
+
+export default withData
+```
+
+La forma de usar este HOC funcional en `InfoUsuario` y `App` es exactamente la misma que con la
+versión de clase: solo cambia la implementación interna de `withData`, que ahora está basada en
+hooks (`useState` y `useEffect`) en lugar de en métodos de ciclo de vida.
