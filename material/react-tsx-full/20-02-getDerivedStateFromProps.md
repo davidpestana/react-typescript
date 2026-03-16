@@ -22,9 +22,9 @@ el estado del componente.
 Es un método del ciclo de vida avanzado y que no se suele utilizar mucho, pero tendremos que
 usarlo cuando el valor del estado depende del valor de alguna de las propiedades que recibe el
 componente.
-
-static getDerivedStateFromProps(props, state) {
 ```tsx
+static getDerivedStateFromProps(props, state) {
+
   return {
     texto: props.number % 2 === 0 ? 'es par' : 'es impar'
   }

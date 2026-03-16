@@ -22,9 +22,9 @@ alguna modificación.
 Un caso donde se podría utilizar es cuando tenemos un chat y escribimos un mensaje. Podríamos
 calcular si es necesario hacer un scroll automático para que el mensaje se muestre en caso de que
 no entre en la pantalla.
+```tsx
 
 getSnapshotBeforeUpdate(prevProps, prevState) {
-```tsx
   if (prevProps.mensajes.length < this.props.mensajes.length) {
     const listaMensajes = this.mensajesRef.current;
     return listaMensajes.scrollHeight - listaMensajes.scrollTop;

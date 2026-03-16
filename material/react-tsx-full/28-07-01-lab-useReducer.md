@@ -34,10 +34,8 @@ import React from 'react'
 const Caja = () => {
 
 return (
-  <div style={{width: '100px', height: '100px', backgroundColor: 'darkred', position: 'absolute', left: '0px', top:
-```
-'0px'}}>
-```tsx
+  <div style={{width: '100px', height: '100px', backgroundColor: 'darkred', position: 'absolute', left: '0px', top: '0px'}}>
+
     </div>
   )
 }

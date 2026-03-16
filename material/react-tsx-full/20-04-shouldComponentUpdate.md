@@ -23,9 +23,9 @@ devolver un valor booleano:
 
 Para saber si es necesario renderizar el componente vamos a recibir las siguientes propiedades y el
 siguiente estado que podremos utilizar para comparar con los valores actuales (antes del render).
-
-shouldComponentUpdate(nextProps, nextState) {
 ```tsx
+shouldComponentUpdate(nextProps, nextState) {
+
   return nextProps.valor !== this.props.valor ? true : false;
 }
 
