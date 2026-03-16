@@ -16,377 +16,191 @@ inicial-lab y vamos a cambiarle el nombre del proyecto a reactjs-higher-order-co
 cargar-datos-lab.
 
 Es posible que sea necesario volver a instalar las dependencias del proyecto para
-que funcione correctamente. Para ello solo tenemos que lanzar el comando npm
-install dentro de la carpeta del proyecto.
+que funcione correctamente. Para ello solo tenemos que lanzar el comando `npm
+install` dentro de la carpeta del proyecto.
 
 Ahora vamos a levantar el servidor de desarrollo con el comando:
 
 ```tsx
 $ npm start
 ```
+
 Empezaremos creando la siguiente estructura de archivos que después iremos rellenando:
 
-- src/hoc/withData.js
+- `src/hoc/withData.js`
 
-- src/components/InfoUsuario.tsx
+- `src/components/InfoUsuario.tsx`
 
-Vamos a empezar a rellenar el hoc withData con la función que recibe el componente y vamos a
-hacer que retorne el nuevo componente que renderiza el WrappedCmp con las propiedades que se
-le pasan.
+En este lab vamos a implementar el HOC **solo con funciones flecha y hooks**, sin clases.
+
+---
+
+## Paso 1: HOC básico con función flecha
+
+Vamos a empezar a rellenar el hoc `withData` con una **función flecha** que recibe el componente
+`WrappedCmp` y devuelve otro componente funcional que simplemente lo renderiza con las props
+que reciba.
 
 **Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.js`
 
 ```tsx
-import { Component } from 'react';
-
 const withData = (WrappedCmp) => {
-  return class extends Component {
-    render() {
-      return (
-        <>
-           <WrappedCmp {...this.props} />
-        </>
-      )
-    }
+  const WithData = (props) => {
+    return (
+      <>
+        <WrappedCmp {...props} />
+      </>
+    )
   }
+
+  return WithData
 }
 
-export default withData;
+export default withData
 ```
+
 La idea es que desde este hoc realicemos una petición GET a una URL para obtener los datos que se
 le van a pasar a nuestro componente. Entonces vamos a hacer que nuestro hoc reciba también la
 URL.
 
+---
+
+## Paso 2: Pedir datos con `fetch` y `useState`
+
 Una vez que tenemos la URL, tenemos que hacer la petición, pero los datos recibidos tendremos que
-almacenarlos en algún sitio para poder pasarselos al componente. Así que crearemos un estado
-data que inicializamos a null hasta que los datos se hayan obtenido.
+almacenarlos en algún sitio para poder pasárselos al componente. Para ello usaremos **hooks**
+(`useState` y `useEffect`) en lugar de clases.
 
 **Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.js`
 
 ```tsx
-import { Component } from 'react';
+import { useEffect, useState } from 'react'
 
 const withData = (WrappedCmp, url) => {
-  return class extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        data: null
+  const WithData = (props) => {
+    const [data, setData] = useState(null)
+
+    useEffect(() => {
+      const fetchData = async () => {
+        const response = await fetch(url)
+        const datos = await response.json()
+        setData(datos)
       }
-    }
 
-        render() {
-          return (
-            <>
-               <WrappedCmp {...this.props} />
-            </>
-          )
-        }
-    }
-}
-
-export default withData;
-```
-Ahora vamos a realizar la petición GET usando el método fetch en el método del ciclo de vida
-componentDidMount, y una vez que hayamos obtenido los datos cambiaremos el estado.
-
-**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.js`
-
-```tsx
-import { Component } from 'react';
-
-const withData = (WrappedCmp, url) => {
-  return class extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        data: null
-      }
-    }
-```
-async componentDidMount() {
-```tsx
-const response = await fetch(url);
-const datos = await response.json();
-```
-this.setState({
-```tsx
-data: datos
-
-    })
-}
-
-        render() {
-          return (
-            <>
-               <WrappedCmp {...this.props} />
-            </>
-          )
-        }
-    }
-}
-
-export default withData;
-```
-Una vez que tenemos los datos ya se los podemos pasar a nuestro componente WrappedCmp de la
-misma forma en que le pasamos cualquier valor, en forma de propiedad.
-
-**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.js`
-
-```tsx
-import { Component } from 'react';
-
-const withData = (WrappedCmp, url) => {
-  return class extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        data: null
-      }
-    }
-```
-async componentDidMount() {
-```tsx
-  const response = await fetch(url);
-  const datos = await response.json();
-  this.setState({
-     data: datos
-  })
-}
-
-        render() {
-          return (
-            <>
-               <WrappedCmp {...this.props} data={this.state.data} />
-            </>
-          )
-        }
-    }
-}
-
-export default withData;
-```
-Ahora que tenemos el hoc, podemos mejorarlo un poco más para hacer que no se pinte el
-componente que espera los datos hasta que se hayan obtenido estos. Mientras se obtienen vamos a
-mostrar un mensaje de loading.
-
-Para hacer esto vamos a añadir en el estado otro atributo cargandoDatos que vamos a inicializar a
-```tsx
-true, y mientras este valor sea true, se mostrará el mensaje de loading.
-```
-**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.js`
-
-```tsx
-import { Component } from 'react';
-
-const withData = (WrappedCmp, url) => {
-  return class extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        data: null,
-        cargandoDatos: true
-      }
-    }
-```
-async componentDidMount() {
-```tsx
-  const response = await fetch(url);
-  const datos = await response.json();
-  this.setState({
-     data: datos
-  })
-}
-
-        render() {
-          return (
-            <>
-               {this.state.cargandoDatos ? <p>Loading...</p> : <WrappedCmp {...this.props} data={this.state.data} />}
-            </>
-          )
-        }
-    }
-}
-
-export default withData;
-```
-De momento se queda siempre mostrando el mensaje de loading, y es porque cuando obtenemos
-```tsx
-los datos tenemos que cambiar el valor de cargandoDatos a false. Vamos a poner el cambio de
-```
-estado dentro de un setTimeout para ver que el mensaje se muestra.
-
-**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.js`
-
-```tsx
-import { Component } from 'react';
-
-const withData = (WrappedCmp, url) => {
-  return class extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        data: null,
-        cargandoDatos: true
-      }
-    }
-```
-async componentDidMount() {
-```tsx
-  const response = await fetch(url);
-  const datos = await response.json();
-  setTimeout(() => {
-    this.setState({
-       data: datos,
-       cargandoDatos: false
-    })
-  }, 1400)
-}
-
-        render() {
-          return (
-            <>
-               {this.state.cargandoDatos ? <p>Loading...</p> : <WrappedCmp {...this.props} data={this.state.data} />}
-            </>
-          )
-        }
-    }
-}
-
-export default withData;
-```
-Por último para dejar este componente más completo, vamos a hacer que el loading se le pueda
-configurar mandandoselo como parámetro del hoc de tal forma que podamos mostrar mensajes o
-spinners que se adapten mejor a nuestra aplicación.
-
-**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.js`
-
-```tsx
-import { Component } from 'react';
-
-const withData = (WrappedCmp, url, Loader = <p>Loading...</p>) => {
-  return class extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        data: null,
-        cargandoDatos: true
-      }
-    }
-```
-async componentDidMount() {
-```tsx
-  const response = await fetch(url);
-  const datos = await response.json();
-  setTimeout(() => {
-    this.setState({
-       data: datos,
-       cargandoDatos: false
-    })
-  }, 1400)
-}
-
-render() {
-  return (
-    <>
-       {this.state.cargandoDatos ? Loader : <WrappedCmp {...this.props} data={this.state.data} />}
-    </>
-
-            )
-        }
-    }
-}
-
-export default withData;
-```
-Ahora que tenemos el hoc completo, vamos a crear el componente que recibirá los datos y los
-pintará.
-
-**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/components/InfoUsuario.tsx`
-
-```tsx
-const InfoUsuario = ({ data }) => {
-  const { name, email, picture } = data.results[0];
-  return (
-    <div>
-      <h2>{name.first} {name.last}</h2>
-      <img src={picture.medium} alt={`Foto de ${name.first}`} />
-      <p>✉️: {email}</p>
-    </div>
-  )
-}
-
-export default InfoUsuario
-```
-Y ahora en el componente App vamos a utilizar nuestro hoc withData para inyectar en el
-componente InfoUsuario los datos que obtenemos de la API de https://randomuser.me/api/.
-
-**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/components/App.tsx`
-
-```tsx
-import withData from "../hoc/withData"
-import InfoUsuario from './InfoUsuario';
-
-const App = () => {
-  const InfoUsuarioWithData = withData(InfoUsuario, 'https://randomuser.me/api/');
+      fetchData()
+    }, [])
 
     return (
-      <div>
-        <InfoUsuarioWithData />
-      </div>
+      <>
+        <WrappedCmp {...props} data={data} />
+      </>
     )
+  }
+
+  return WithData
 }
 
-export default App
+export default withData
 ```
-Con esto ya deberíamos de ver la información aleatoria de un usuario con el loader mientras se
-cargan los datos.
 
-Para hacer un poco más molón el ejemplo, vamos a utilizar algún spinner más currado. Para ello
-utilizaremos la dependencia de spinners-react que podemos encontrar en
+Ahora que tenemos los datos ya se los podemos pasar a nuestro componente `WrappedCmp` de la
+misma forma en que le pasamos cualquier valor, en forma de propiedad (`data`).
 
-https://adexin.github.io/spinners/.
+---
 
-Instalamos la dependencia en nuestro proyecto lanzando el comando:
+## Paso 3: Añadir estado de `cargandoDatos` y mostrar loading
+
+Vamos a mejorar el HOC para hacer que **no se pinte el componente** que espera los datos hasta que
+se hayan obtenido estos. Mientras se obtienen vamos a mostrar un mensaje de `Loading...`.
+
+Para hacer esto vamos a añadir otro estado `cargandoDatos` que inicializamos a `true`, y mientras
+este valor sea `true`, se mostrará el mensaje de loading.
+
+**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.js`
 
 ```tsx
-$ npm install --save spinners-react
-```
-Una vez instalada, buscamos el spinner que más nos guste y lo importamos dentro de nuestro
-componente principal, y se lo vamos a pasar a nuestro HOC.
+import { useEffect, useState } from 'react'
 
-**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/components/App.tsx`
+const withData = (WrappedCmp, url) => {
+  const WithData = (props) => {
+    const [data, setData] = useState(null)
+    const [cargandoDatos, setCargandoDatos] = useState(true)
 
-```tsx
-import withData from "../hoc/withData"
-import InfoUsuario from './InfoUsuario';
+    useEffect(() => {
+      const fetchData = async () => {
+        const response = await fetch(url)
+        const datos = await response.json()
+        setData(datos)
+        setCargandoDatos(false)
+      }
 
-const App = () => {
-  const InfoUsuarioWithData = withData(
-```
-InfoUsuario,
-```tsx
-   'https://randomuser.me/api/',
-   <SpinnerDotted size={50} thickness={100} speed={100} color="#36ad47" />
-);
+      fetchData()
+    }, [])
 
     return (
-      <div>
-        <InfoUsuarioWithData />
-      </div>
+      <>
+        {cargandoDatos ? <p>Loading...</p> : <WrappedCmp {...props} data={data} />}
+      </>
     )
+  }
+
+  return WithData
 }
 
-export default App
+export default withData
 ```
 
 ---
 
-## Versión alternativa con componente funcional
+## Paso 4: Simular retardo con `setTimeout`
 
-Todo lo anterior lo hemos hecho con un HOC basado en **clases**.  
-Si quieres usar solo **componentes funcionales**, podemos reescribir `withData` usando `useState` y
-`useEffect`.
+De momento el mensaje de loading puede verse muy rápido. Vamos a poner el cambio de estado
+dentro de un `setTimeout` para simular un pequeño retardo y ver que el mensaje se muestra.
+
+**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.js`
+
+```tsx
+import { useEffect, useState } from 'react'
+
+const withData = (WrappedCmp, url) => {
+  const WithData = (props) => {
+    const [data, setData] = useState(null)
+    const [cargandoDatos, setCargandoDatos] = useState(true)
+
+    useEffect(() => {
+      const fetchData = async () => {
+        const response = await fetch(url)
+        const datos = await response.json()
+
+        setTimeout(() => {
+          setData(datos)
+          setCargandoDatos(false)
+        }, 1400)
+      }
+
+      fetchData()
+    }, [])
+
+    return (
+      <>
+        {cargandoDatos ? <p>Loading...</p> : <WrappedCmp {...props} data={data} />}
+      </>
+    )
+  }
+
+  return WithData
+}
+
+export default withData
+```
+
+---
+
+## Paso 5: Hacer configurable el loader
+
+Por último para dejar este componente más completo, vamos a hacer que el loading se le pueda
+configurar mandándoselo como parámetro del HOC de tal forma que podamos mostrar mensajes o
+spinners que se adapten mejor a nuestra aplicación.
 
 **Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.js`
 
@@ -425,6 +239,101 @@ const withData = (WrappedCmp, url, Loader = <p>Loading...</p>) => {
 export default withData
 ```
 
-La forma de usar este HOC funcional en `InfoUsuario` y `App` es exactamente la misma que con la
-versión de clase: solo cambia la implementación interna de `withData`, que ahora está basada en
-hooks (`useState` y `useEffect`) en lugar de en métodos de ciclo de vida.
+---
+
+## Paso 6: Componente `InfoUsuario` (función flecha)
+
+Ahora que tenemos el HOC completo, vamos a crear el componente que recibirá los datos y los
+pintará.
+
+**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/components/InfoUsuario.tsx`
+
+```tsx
+const InfoUsuario = ({ data }) => {
+  const { name, email, picture } = data.results[0]
+
+  return (
+    <div>
+      <h2>
+        {name.first} {name.last}
+      </h2>
+      <img src={picture.medium} alt={`Foto de ${name.first}`} />
+      <p>✉️: {email}</p>
+    </div>
+  )
+}
+
+export default InfoUsuario
+```
+
+---
+
+## Paso 7: Usar el HOC en `App` (función flecha)
+
+Y ahora en el componente `App` vamos a utilizar nuestro HOC `withData` para inyectar en el
+componente `InfoUsuario` los datos que obtenemos de la API de `https://randomuser.me/api/`.
+
+**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/components/App.tsx`
+
+```tsx
+import withData from '../hoc/withData'
+import InfoUsuario from './InfoUsuario'
+
+const App = () => {
+  const InfoUsuarioWithData = withData(InfoUsuario, 'https://randomuser.me/api/')
+
+  return (
+    <div>
+      <InfoUsuarioWithData />
+    </div>
+  )
+}
+
+export default App
+```
+
+Con esto ya deberíamos de ver la información aleatoria de un usuario con el loader mientras se
+cargan los datos.
+
+---
+
+## Paso 8: Usar un spinner más “molón”
+
+Para hacer un poco más molón el ejemplo, vamos a utilizar algún spinner más currado. Para ello
+utilizaremos la dependencia de `spinners-react` que podemos encontrar en:
+
+`https://adexin.github.io/spinners/`.
+
+Instalamos la dependencia en nuestro proyecto lanzando el comando:
+
+```tsx
+$ npm install --save spinners-react
+```
+
+Una vez instalada, buscamos el spinner que más nos guste y lo importamos dentro de nuestro
+componente principal, y se lo vamos a pasar a nuestro HOC.
+
+**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/components/App.tsx`
+
+```tsx
+import withData from '../hoc/withData'
+import InfoUsuario from './InfoUsuario'
+import { SpinnerDotted } from 'spinners-react'
+
+const App = () => {
+  const InfoUsuarioWithData = withData(
+    InfoUsuario,
+    'https://randomuser.me/api/',
+    <SpinnerDotted size={50} thickness={100} speed={100} color="#36ad47" />
+  )
+
+  return (
+    <div>
+      <InfoUsuarioWithData />
+    </div>
+  )
+}
+
+export default App
+```
+
