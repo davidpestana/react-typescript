@@ -41,11 +41,15 @@ Vamos a empezar a rellenar el hoc `withData` con una **función flecha** que rec
 `WrappedCmp` y devuelve otro componente funcional que simplemente lo renderiza con las props
 que reciba.
 
-**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.js`
+**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.tsx`
 
 ```tsx
-const withData = (WrappedCmp) => {
-  const WithData = (props) => {
+import type { ComponentType } from 'react'
+
+const withData = <P extends object>(
+  WrappedCmp: ComponentType<P>
+) => {
+  const WithData = (props: P) => {
     return (
       <>
         <WrappedCmp {...props} />
@@ -71,24 +75,27 @@ Una vez que tenemos la URL, tenemos que hacer la petición, pero los datos recib
 almacenarlos en algún sitio para poder pasárselos al componente. Para ello usaremos **hooks**
 (`useState` y `useEffect`) en lugar de clases.
 
-**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.js`
+**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.tsx`
 
 ```tsx
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ComponentType } from 'react'
 
-const withData = (WrappedCmp, url) => {
-  const WithData = (props) => {
-    const [data, setData] = useState(null)
+const withData = <P extends object, TData = unknown>(
+  WrappedCmp: ComponentType<P & { data: TData | null }>,
+  url: string
+) => {
+  const WithData = (props: P) => {
+    const [data, setData] = useState<TData | null>(null)
 
     useEffect(() => {
       const fetchData = async () => {
         const response = await fetch(url)
-        const datos = await response.json()
+        const datos: TData = await response.json()
         setData(datos)
       }
 
       fetchData()
-    }, [])
+    }, [url])
 
     return (
       <>
@@ -116,26 +123,29 @@ se hayan obtenido estos. Mientras se obtienen vamos a mostrar un mensaje de `Loa
 Para hacer esto vamos a añadir otro estado `cargandoDatos` que inicializamos a `true`, y mientras
 este valor sea `true`, se mostrará el mensaje de loading.
 
-**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.js`
+**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.tsx`
 
 ```tsx
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ComponentType } from 'react'
 
-const withData = (WrappedCmp, url) => {
-  const WithData = (props) => {
-    const [data, setData] = useState(null)
+const withData = <P extends object, TData = unknown>(
+  WrappedCmp: ComponentType<P & { data: TData | null }>,
+  url: string
+) => {
+  const WithData = (props: P) => {
+    const [data, setData] = useState<TData | null>(null)
     const [cargandoDatos, setCargandoDatos] = useState(true)
 
     useEffect(() => {
       const fetchData = async () => {
         const response = await fetch(url)
-        const datos = await response.json()
+        const datos: TData = await response.json()
         setData(datos)
         setCargandoDatos(false)
       }
 
       fetchData()
-    }, [])
+    }, [url])
 
     return (
       <>
@@ -157,20 +167,23 @@ export default withData
 De momento el mensaje de loading puede verse muy rápido. Vamos a poner el cambio de estado
 dentro de un `setTimeout` para simular un pequeño retardo y ver que el mensaje se muestra.
 
-**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.js`
+**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.tsx`
 
 ```tsx
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ComponentType } from 'react'
 
-const withData = (WrappedCmp, url) => {
-  const WithData = (props) => {
-    const [data, setData] = useState(null)
+const withData = <P extends object, TData = unknown>(
+  WrappedCmp: ComponentType<P & { data: TData | null }>,
+  url: string
+) => {
+  const WithData = (props: P) => {
+    const [data, setData] = useState<TData | null>(null)
     const [cargandoDatos, setCargandoDatos] = useState(true)
 
     useEffect(() => {
       const fetchData = async () => {
         const response = await fetch(url)
-        const datos = await response.json()
+        const datos: TData = await response.json()
 
         setTimeout(() => {
           setData(datos)
@@ -179,7 +192,7 @@ const withData = (WrappedCmp, url) => {
       }
 
       fetchData()
-    }, [])
+    }, [url])
 
     return (
       <>
@@ -202,20 +215,24 @@ Por último para dejar este componente más completo, vamos a hacer que el loadi
 configurar mandándoselo como parámetro del HOC de tal forma que podamos mostrar mensajes o
 spinners que se adapten mejor a nuestra aplicación.
 
-**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.js`
+**Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/hoc/withData.tsx`
 
 ```tsx
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ComponentType, type ReactNode } from 'react'
 
-const withData = (WrappedCmp, url, Loader = <p>Loading...</p>) => {
-  const WithData = (props) => {
-    const [data, setData] = useState(null)
+const withData = <P extends object, TData = unknown>(
+  WrappedCmp: ComponentType<P & { data: TData | null }>,
+  url: string,
+  Loader: ReactNode = <p>Loading...</p>
+) => {
+  const WithData = (props: P) => {
+    const [data, setData] = useState<TData | null>(null)
     const [cargandoDatos, setCargandoDatos] = useState(true)
 
     useEffect(() => {
       const fetchData = async () => {
         const response = await fetch(url)
-        const datos = await response.json()
+        const datos: TData = await response.json()
 
         setTimeout(() => {
           setData(datos)
@@ -224,7 +241,7 @@ const withData = (WrappedCmp, url, Loader = <p>Loading...</p>) => {
       }
 
       fetchData()
-    }, [])
+    }, [url])
 
     return (
       <>
@@ -249,7 +266,24 @@ pintará.
 **Archivo:** `/reactjs-higher-order-components-cargar-datos-lab/src/components/InfoUsuario.tsx`
 
 ```tsx
-const InfoUsuario = ({ data }) => {
+type RandomUserApiResponse = {
+  results: Array<{
+    name: {
+      first: string
+      last: string
+    }
+    email: string
+    picture: {
+      medium: string
+    }
+  }>
+}
+
+type InfoUsuarioProps = {
+  data: RandomUserApiResponse
+}
+
+const InfoUsuario = ({ data }: InfoUsuarioProps) => {
   const { name, email, picture } = data.results[0]
 
   return (
@@ -278,9 +312,13 @@ componente `InfoUsuario` los datos que obtenemos de la API de `https://randomuse
 ```tsx
 import withData from '../hoc/withData'
 import InfoUsuario from './InfoUsuario'
+import type { RandomUserApiResponse } from '../types/randomUser'
 
 const App = () => {
-  const InfoUsuarioWithData = withData(InfoUsuario, 'https://randomuser.me/api/')
+  const InfoUsuarioWithData = withData<{}, RandomUserApiResponse>(
+    InfoUsuario,
+    'https://randomuser.me/api/'
+  )
 
   return (
     <div>
@@ -319,9 +357,10 @@ componente principal, y se lo vamos a pasar a nuestro HOC.
 import withData from '../hoc/withData'
 import InfoUsuario from './InfoUsuario'
 import { SpinnerDotted } from 'spinners-react'
+import type { RandomUserApiResponse } from '../types/randomUser'
 
 const App = () => {
-  const InfoUsuarioWithData = withData(
+  const InfoUsuarioWithData = withData<{}, RandomUserApiResponse>(
     InfoUsuario,
     'https://randomuser.me/api/',
     <SpinnerDotted size={50} thickness={100} speed={100} color="#36ad47" />

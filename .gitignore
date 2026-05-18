@@ -1,5 +1,4 @@
 node_modules/
-material/react-tsx-full/.git
 .env
 .env.local
 *.pyc

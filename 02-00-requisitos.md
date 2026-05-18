@@ -15,7 +15,7 @@ Para seguir este curso vamos a usar un **entorno uniforme** basado en **GitHub C
 ### Opción recomendada: Fork + GitHub Codespaces
 
 1. **Haz fork del repositorio**  
-   En la página del repo en GitHub, clic en **Fork**. Tendrás una copia en tu cuenta (por ejemplo `tu-usuario/react-tsx-full`).
+   En la página del repo en GitHub, clic en **Fork**. Tendrás una copia en tu cuenta (por ejemplo `tu-usuario/react-typescript`).
 
 2. **Abre un Codespace**  
    En tu fork: botón **Code** → pestaña **Codespaces** → **Create codespace on main**. GitHub crea un contenedor con Linux, Node.js y VS Code en el navegador (o en la app Codespaces).
