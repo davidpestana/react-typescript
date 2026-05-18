@@ -1,6 +1,6 @@
 type Direccion = {
-  calle: string
-  numero: number
-}
+  calle: string;
+  numero: number;
+};
 
-export default Direccion
+export default Direccion;

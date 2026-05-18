@@ -1,20 +1,17 @@
-import Direccion from "./Direccion"
+import type Direccion from './Direccion';
 
 type NumeroPositivo = number;
 
 function esNumeroPositivo(value: number): value is NumeroPositivo {
-  if (value < 0) {
-    console.error('El número tiene que ser mayor a 0');
-    return false;
-  }
-  return true;
+  return value >= 0;
 }
 
+type Usuario = {
+  nombre: string;
+  edad: NumeroPositivo;
+  direccion?: Direccion;
+};
 
-type Usuario =  {
-  nombre: string,
-  edad: NumeroPositivo,
-  direccion?: Direccion
-}
-
-export default Usuario
+export { esNumeroPositivo };
+export type { Usuario, NumeroPositivo };
+export default Usuario;

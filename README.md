@@ -7,7 +7,7 @@ Manual en Markdown con **105 capítulos**: desde qué es React hasta React Route
 1. **Haz un fork** de este repositorio en tu cuenta de GitHub.
 2. Abre tu fork en **GitHub Codespaces** (botón *Code* → *Codespaces* → *Create codespace on main*).
 3. En el Codespace tendrás Node, el editor y las extensiones recomendadas; los detalles están en [Requisitos](02-00-requisitos.md).
-4. Sigue el [Índice](#índice) en orden. Para practicar, crea proyectos con Vite (cap. 7.5) o desde cero (cap. 8.1).
+4. Sigue el [Índice](#índice) en orden. Para practicar, crea proyectos con Vite (cap. 7.5) o desde cero (cap. 8.1). Opcional: ejecuta los [ejemplos](ejemplos/) en `ejemplos/miapp-ts` (`npm install && npm start`).
 
 ## Índice
 
