@@ -23,7 +23,7 @@ Pues utilizando la función createElement que se importa de React.
 
 import React from 'react';
 
-const App = () => {
+const App = (): JSX.Element => {
   return React.createElement(
     'div',
     {id: 'main'},
@@ -51,7 +51,7 @@ podemos ver a continuación:
 ```tsx
 import { jsx } from 'react/jsx-runtime';
 
-const App = () => {
+const App = (): JSX.Element => {
   return jsx(
     'div',
     {

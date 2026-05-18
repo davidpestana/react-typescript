@@ -49,21 +49,28 @@ Ahora creamos el componente Modal usando React Portal:
 **Archivo:** `/src/components/Modal.tsx`
 
 ```tsx
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom'
 import './Modal.css'
 
-const Modal = ({ onClose, children }) => {
-  return ReactDOM.createPortal(
-    <div class="backdrop">
-      <div class="modal">
-        <button onClick={onClose}>X</button>
+type ModalProps = {
+  onClose: () => void
+  children: React.ReactNode
+}
+
+const Modal = ({ onClose, children }: ModalProps) => {
+  const modalRoot = document.getElementById('modal')
+  if (!modalRoot) return null
+
+  return createPortal(
+    <div className="backdrop">
+      <div className="modal">
+        <button type="button" onClick={onClose}>X</button>
         <hr />
         {children}
-
-          </div>
-        </div>,
-        document.getElementById('modal')
-    )
+      </div>
+    </div>,
+    modalRoot
+  )
 }
 
 export default Modal
@@ -101,7 +108,7 @@ Finalmente, implementamos el componente App:
 import React, { useState } from "react"
 import Modal from "./Modal"
 
-const App = () => {
+const App = (): JSX.Element => {
   const [isClosed, setIsClosed] = useState(true)
 
 return (

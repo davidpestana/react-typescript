@@ -40,7 +40,7 @@ Vamos a crear un componente funcional `App` que:
 import { useRef, useState, ChangeEvent } from 'react'
 import sonidoPiolin from './assets/sonido-piolin.mp3'
 
-const App = () => {
+const App = (): JSX.Element => {
   const [volumen, setVolumen] = useState(100)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 

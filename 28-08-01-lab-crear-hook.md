@@ -66,12 +66,12 @@ export default App
 ```
 Ahora ya deberíamos de ver el componente en el navegador, pero no tiene ninguna funcionalidad.
 
-Lo siguiente que vamos a hacer es empezar a crear nuestro propio hook en hooks/index.js.
+Lo siguiente que vamos a hacer es empezar a crear nuestro propio hook en hooks/index.ts.
 
 El hook es una función que vamos a llamar useInputForm y exportaremos para usarlo en nuestra
 aplicación.
 
-**Archivo:** `/reactjs-hooks-custom-hook-lab/src/hooks/index.js`
+**Archivo:** `/reactjs-hooks-custom-hook-lab/src/hooks/index.ts`
 
 ```tsx
 export const useInputForm = () => {
@@ -79,7 +79,7 @@ export const useInputForm = () => {
 Dentro de la función vamos a crear un estado que inicializaremos con un valor que vamos a recibir
 como parámetro en la función del hook.
 
-**Archivo:** `/reactjs-hooks-custom-hook-lab/src/hooks/index.js`
+**Archivo:** `/reactjs-hooks-custom-hook-lab/src/hooks/index.ts`
 
 ```tsx
 import { useState } from 'react';
@@ -96,7 +96,7 @@ vamos a devolver:
 - Y un método onChange, que se encargará de cambiar el estado cuando se detecte dicho evento
 en el input.
 
-**Archivo:** `/reactjs-hooks-custom-hook-lab/src/hooks/index.js`
+**Archivo:** `/reactjs-hooks-custom-hook-lab/src/hooks/index.ts`
 
 ```tsx
 import { useState } from 'react';
@@ -145,7 +145,7 @@ useEffect para pasar todas las validaciones cada vez que el value cambie de valo
 Tenemos que añadir un nuevo estado para controlar si el campo es válido o no lo es. Este valor lo
 vamos a devolver para poder mostrar el mensaje correcto en el campo de texto.
 
-**Archivo:** `/reactjs-hooks-custom-hook-lab/src/hooks/index.js`
+**Archivo:** `/reactjs-hooks-custom-hook-lab/src/hooks/index.ts`
 
 ```tsx
 import { useState, useEffect } from 'react';

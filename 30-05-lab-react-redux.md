@@ -35,7 +35,7 @@ Vamos a empezar creando la estructura del contador dentro de nuestro componente 
 **Archivo:** `/reactjs-react-redux-lab/src/components/App.tsx`
 
 ```tsx
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <div>
       <button>-</button>
@@ -53,76 +53,79 @@ proyecto.
 Empezamos creando una carpeta store dentro de la carpeta src. Dentro de esta carpeta vamos a
 generar la siguiente estructura de archivos y carpetas:
 
-- store/config-store.js
+- store/config-store.ts
 
-- store/contador/action-types.js
+- store/contador/action-types.ts
 
-- store/contador/actions.js
+- store/contador/actions.ts
 
-- store/contador/index.js
+- store/contador/index.ts
 
 Vamos a empezar definiendo los distintos tipos de acciones que vamos a poder despachar. Esto lo
-haremos en el archivo de action-types.js, en el que vamos a crear una serie de constantes que
-exportaremos para usarlas luego más tarde en el reducer y en el archivo de actions.js.
+haremos en el archivo action-types.ts, en el que vamos a crear una serie de constantes que
+exportaremos para usarlas luego más tarde en el reducer y en el archivo actions.ts.
 
-**Archivo:** `/reactjs-react-redux-lab/src/store/contador/action-types.js`
+**Archivo:** `/reactjs-react-redux-lab/src/store/contador/action-types.ts`
 
 ```tsx
-export const INCREMENTAR = 'INCREMENTAR';
-export const DECREMENTAR = 'DECREMENTAR';
+export const INCREMENTAR = 'INCREMENTAR' as const;
+export const DECREMENTAR = 'DECREMENTAR' as const;
 ```
 Ahora vamos a crear las funciones action creators que se encargarán de crear los objetos de
 acciones que vamos a despachar.
 
-Nos vamos al archivo actions.js en el que exportaremos dos funciones, una que devolverá la acción
+Nos vamos al archivo actions.ts en el que exportaremos dos funciones, una que devolverá la acción
 para incrementar la cuenta, y la otra para decrementarla.
 
-**Archivo:** `/reactjs-react-redux-lab/src/store/contador/actions.js`
+**Archivo:** `/reactjs-react-redux-lab/src/store/contador/actions.ts`
 
 ```tsx
-import { INCREMENTAR, DECREMENTAR } from "./action-types"
+import { INCREMENTAR, DECREMENTAR } from "./action-types";
 
 export function incrementar() {
-  return {
-    type: INCREMENTAR,
-  }
+  return { type: INCREMENTAR } as const;
 }
 
 export function decrementar() {
-  return {
-    type: DECREMENTAR,
-  }
+  return { type: DECREMENTAR } as const;
 }
+
+export type ContadorAction =
+  | ReturnType<typeof incrementar>
+  | ReturnType<typeof decrementar>;
 ```
-Una vez tenemos este archivo, vamos a rellenar el index.js donde vamos a poner nuestro reducer,
+Una vez tenemos este archivo, vamos a rellenar el index.ts donde vamos a poner nuestro reducer,
 es decir, una función que va a recibir el estado actual y una acción, y donde vamos a crear el nuevo
 estado con los cambios indicados por la acción que llega. Esta función tiene que retornar el nuevo
 estado.
 
-**Archivo:** `/reactjs-react-redux-lab/src/store/contador/index.js`
+**Archivo:** `/reactjs-react-redux-lab/src/store/contador/index.ts`
 
 ```tsx
 import { DECREMENTAR, INCREMENTAR } from "./action-types";
+import type { ContadorAction } from "./actions";
 
-export default function contador(state = 0, action) {
+export default function contador(
+  state = 0,
+  action: ContadorAction
+): number {
   switch (action.type) {
     case INCREMENTAR:
       return state + 1;
     case DECREMENTAR:
       return state - 1;
-
-        default:
-          return state;
-    }
+    default:
+      return state;
+  }
 }
 ```
 Con esto ya tenemos la parte de las acciones y el reducer, ahora solo tenemos que crear el store, y
-esto lo haremos en el archivo config-store.js.
+esto lo haremos en el archivo config-store.ts.
 
 Dentro de este archivo exportaremos otra función que va a retornar el store creado con la función
 createStore de Redux a la que le vamos a pasar nuestro reducer.
 
-**Archivo:** `/reactjs-react-redux-lab/src/store/config-store.js`
+**Archivo:** `/reactjs-react-redux-lab/src/store/config-store.ts`
 
 ```tsx
 import { createStore } from 'redux'
@@ -137,7 +140,7 @@ envolver nuestro componente App con el componente Provider de react-redux al cua
 pasaremos el store y se encargará de hacerlo llegar a todos los componentes donde vayamos a
 necesitarlo.
 
-**Archivo:** `/reactjs-react-redux-lab/src/index.js`
+**Archivo:** `/reactjs-react-redux-lab/src/main.tsx`
 
 ```tsx
 import { createRoot } from 'react-dom/client';
@@ -161,7 +164,7 @@ cuenta actual.
 ```tsx
 import { useSelector } from 'react-redux';
 
-const App = () => {
+const App = (): JSX.Element => {
 
 const cuenta = useSelector(state => state);
 
@@ -185,7 +188,7 @@ funciones que vamos a crear desde las que despacharemos las acciones.
 import { useSelector } from 'react-redux';
 import { incrementar, decrementar } from '../store/contador/actions';
 
-const App = () => {
+const App = (): JSX.Element => {
   const cuenta = useSelector(state => state);
 
 const incrementarCuenta = () => {
@@ -219,7 +222,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { incrementar, decrementar } from '../store/contador/actions';
 
-const App = () => {
+const App = (): JSX.Element => {
   const cuenta = useSelector(state => state);
   const dispatch = useDispatch()
 

@@ -112,7 +112,7 @@ numérico que pasaremos como propiedad a este componente.
 import { useState } from "react"
 import CajaColor from "./CajaColor"
 
-const App = () => {
+const App = (): JSX.Element => {
   const [cantidadTotal, setCantidadTotal] = useState(0);
 
 return (
@@ -301,7 +301,7 @@ import { useState } from 'react'
 import CajaColor from './CajaColor'
 import HoraActual from './HoraActual'
 
-const App = () => {
+const App = (): JSX.Element => {
   const [cantidadTotal, setCantidadTotal] = useState(0);
   const [mostrarHoraActual, setMostrarHoraActual] = useState(true);
 
@@ -333,7 +333,7 @@ import { useState } from 'react'
 import CajaColor from './CajaColor'
 import HoraActual from './HoraActual'
 
-const App = () => {
+const App = (): JSX.Element => {
   const [cantidadTotal, setCantidadTotal] = useState(0);
   const [mostrarHoraActual, setMostrarHoraActual] = useState(true);
 

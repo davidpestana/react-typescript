@@ -29,7 +29,7 @@ navegador hable.
 **Archivo:** `/reactjs-eventos-lab/src/components/App.tsx`
 
 ```tsx
-const App = () => {
+const App = (): JSX.Element => {
   const handleClick = () => {}
 
     return (
@@ -55,7 +55,7 @@ y que finalmente nos cante mal la intro.
 **Archivo:** `/reactjs-eventos-lab/src/components/App.tsx`
 
 ```tsx
-const App = () => {
+const App = (): JSX.Element => {
 
 const handleClick = () => {
   const textoIntro = new Array(16).join(1-'wat') + ' Batman!';
@@ -79,7 +79,7 @@ evento onClick y asignarle la función que queremos que se ejecute.
 **Archivo:** `/reactjs-eventos-lab/src/components/App.tsx`
 
 ```tsx
-const App = () => {
+const App = (): JSX.Element => {
   const handleClick = () => {
     const textoIntro = new Array(16).join(1-'wat') + ' Batman!';
     const configSpeech = new SpeechSynthesisUtterance(textoIntro);

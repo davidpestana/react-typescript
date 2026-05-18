@@ -27,7 +27,7 @@ $ npm start
 
 Empezaremos creando la siguiente estructura de archivos que después iremos rellenando:
 
-- `src/hoc/withData.js`
+- `src/hoc/withData.tsx`
 
 - `src/components/InfoUsuario.tsx`
 
@@ -314,7 +314,7 @@ import withData from '../hoc/withData'
 import InfoUsuario from './InfoUsuario'
 import type { RandomUserApiResponse } from '../types/randomUser'
 
-const App = () => {
+const App = (): JSX.Element => {
   const InfoUsuarioWithData = withData<{}, RandomUserApiResponse>(
     InfoUsuario,
     'https://randomuser.me/api/'
@@ -359,7 +359,7 @@ import InfoUsuario from './InfoUsuario'
 import { SpinnerDotted } from 'spinners-react'
 import type { RandomUserApiResponse } from '../types/randomUser'
 
-const App = () => {
+const App = (): JSX.Element => {
   const InfoUsuarioWithData = withData<{}, RandomUserApiResponse>(
     InfoUsuario,
     'https://randomuser.me/api/',

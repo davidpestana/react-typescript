@@ -16,13 +16,13 @@ Tenemos dos formas de crear un proyecto con esta herramienta:
 - Forma 1: creamos el proyecto directamente usando npx:
 
 ```tsx
-$ npx create-react-app reactjs-create-react-app-lab
+$ npx create-react-app reactjs-create-react-app-lab --template typescript
 ```
 - Forma 2: instalamos la herramienta y creamos el proyecto:
 
 ```tsx
 $ npm install -g create-react-app
-$ create-react-app reactjs-create-react-app-lab
+$ create-react-app reactjs-create-react-app-lab --template typescript
 ```
 Una vez lanzados los comandos anteriores, se genera el proyecto de React con el nombre que le
 hemos dado (reactjs-create-react-app-lab), y en la consola se nos muestran los distintos comandos

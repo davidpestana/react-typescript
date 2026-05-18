@@ -62,7 +62,7 @@ import { useState } from 'react';
 import Inicio from './Inicio';
 import Admin from './Admin';
 
-const App = () => {
+const App = (): JSX.Element => {
   const [esAdmin, setEsAdmin] = useState(false);
 
     return (
@@ -87,7 +87,7 @@ import { Suspense, lazy, useState } from 'react';
 import Inicio from './Inicio';
 import Admin from './Admin';
 
-const App = () => {
+const App = (): JSX.Element => {
   const [esAdmin, setEsAdmin] = useState(false);
 
     return (
@@ -113,7 +113,7 @@ import { Suspense, lazy, useState } from 'react';
 import Inicio from './Inicio';
 import Admin from './Admin';
 
-const App = () => {
+const App = (): JSX.Element => {
   const [esAdmin, setEsAdmin] = useState(false);
 
 return (
@@ -147,7 +147,7 @@ import Inicio from './Inicio';
 
 const Admin = lazy(() => import('./Admin'));
 
-const App = () => {
+const App = (): JSX.Element => {
   const [esAdmin, setEsAdmin] = useState(false);
 
 return (

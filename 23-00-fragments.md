@@ -16,7 +16,7 @@ elemento.
 ```tsx
 import { useState } from 'react';
 
-const App = () => {
+const App = (): JSX.Element => {
   const [productos, setProductos] = useState(['Tripode para teléfono', 'Gafas de sol cuadradas', 'Sombrero de pescador',
 'Tira LED RGB de 5m']);
 
@@ -50,7 +50,7 @@ mostrará en el DOM.
 ```tsx
 import { useState, Fragment } from 'react';
 
-const App = () => {
+const App = (): JSX.Element => {
   const [productos, setProductos] = useState(['Trípode para teléfono', 'Gafas de sol cuadradas', 'Sombrero de pescador',
 'Tira LED RGB de 5m']);
 
@@ -76,7 +76,7 @@ que esta transformación esté contemplada por nuestro transpilador de TSX a Jav
 ```tsx
 import { useState } from 'react';
 
-const App = () => {
+const App = (): JSX.Element => {
   const [productos, setProductos] = useState(['Tripode para teléfono', 'Gafas de sol cuadradas', 'Sombrero de pescador',
 'Tira LED RGB de 5m']);
 

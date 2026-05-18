@@ -23,7 +23,11 @@ el estado que almacena el store. Esta función nos devuelve la referencia a una 
 eliminar la suscripción.
 
 ```tsx
-const App = ({store}) => {
+import type { Store } from 'redux'
+
+type AppProps = { store: Store<number> }
+
+const App = ({ store }: AppProps) => {
   useEffect(() => {
     const unsubscribe = store.subscribe(() => {
        console.log(store.getState())

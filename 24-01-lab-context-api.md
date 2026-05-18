@@ -32,7 +32,7 @@ entre ambos modos.
 ```tsx
 import { useState } from 'react';
 
-const App = () => {
+const App = (): JSX.Element => {
   const [darkMode, setDarkMode] = useState(true);
 
     return (
@@ -51,7 +51,7 @@ Ahora vamos a crear un objeto de estilos que se aplicarán dependiendo de la opc
 ```tsx
 import { useState } from 'react';
 
-const App = () => {
+const App = (): JSX.Element => {
   const [darkMode, setDarkMode] = useState(true);
   const stylesThemeMode = darkMode ? {
     backgroundColor: 'black',
@@ -84,7 +84,7 @@ import React, { useState } from 'react';
 
 export const ThemeContext = React.createContext();
 
-const App = () => {
+const App = (): JSX.Element => {
   const [darkMode, setDarkMode] = useState(true);
   const stylesThemeMode = darkMode ? {
     backgroundColor: 'black',
@@ -131,7 +131,7 @@ import CmpConsumidor from './CmpConsumidor';
 
 export const ThemeContext = React.createContext();
 
-const App = () => {
+const App = (): JSX.Element => {
   const [darkMode, setDarkMode] = useState(true);
   const stylesThemeMode = darkMode ? {
     backgroundColor: 'black',

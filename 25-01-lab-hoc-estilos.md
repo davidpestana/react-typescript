@@ -29,7 +29,7 @@ Vamos a empezar por crear un componente Boton dentro de la carpeta de components
 después le aplicaremos los estilos con el HOC.
 
 Este componente recibirá en las props el texto y el método que se ejecutará cuando se pulse sobre
-el. Además, vamos a añadirle unos estilos en línea con JavaScript para que quede más curioso el
+el. Además, vamos a añadirle unos estilos en línea (objeto de estilos) para que quede más curioso el
 botón.
 
 **Archivo:** `/reactjs-higher-order-components-hover-lab/src/components/Boton.tsx`
@@ -42,7 +42,14 @@ const styles = {
   backgroundColor: 'white'
 }
 
-const Boton = ({children, handleClick}) => {
+import type { ReactNode } from 'react'
+
+type BotonProps = {
+  children: ReactNode
+  handleClick: () => void
+}
+
+const Boton = ({ children, handleClick }: BotonProps) => {
   return (
     <button
       type="button"
@@ -63,7 +70,7 @@ Una vez tenemos el botón ya podemos añadirlo en el componente App para mostrar
 ```tsx
 import Boton from './Boton';
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <div>
       <Boton handleClick={() => alert('Hola mundo!!!')}>Saludar al mundo</Boton>
@@ -73,17 +80,19 @@ const App = () => {
 
 export default App
 ```
-Ahora vamos a crear el HOC withHover en un archivo de JavaScript en una carpeta src/hoc.
+Ahora vamos a crear el HOC withHover en un archivo TypeScript en una carpeta src/hoc.
 
 Como ya sabemos, un HOC es una función a la que se le va a pasar el componente que queremos
 envolver y añadirle una funcionalidad que no tiene. Por tanto empezamos creando esta función y
 haciendo que esta devuelva el nuevo componente que queremos generar.
 
-**Archivo:** `/reactjs-higher-order-components-hover-lab/src/hoc/withHover.js`
+**Archivo:** `/reactjs-higher-order-components-hover-lab/src/hoc/withHover.tsx`
 
 ```tsx
-const withHover = (WrappedCmp) => {
-  return (props) => {
+import type { ComponentType } from 'react'
+
+const withHover = <P extends object>(WrappedCmp: ComponentType<P>) => {
+  return (props: P) => {
     return ()
   }
 }
@@ -94,11 +103,13 @@ Ahora dentro del return vamos a poner el componente que recibimos como parámetr
 ```
 envolveremos con una etiqueta div a la que le vamos a aplicar unos estilos.
 
-**Archivo:** `/reactjs-higher-order-components-hover-lab/src/hoc/withHover.js`
+**Archivo:** `/reactjs-higher-order-components-hover-lab/src/hoc/withHover.tsx`
 
 ```tsx
-const withHover = (WrappedCmp) => {
-  return (props) => {
+import type { ComponentType } from 'react'
+
+const withHover = <P extends object>(WrappedCmp: ComponentType<P>) => {
+  return (props: P) => {
     return (
       <div>
         <WrappedCmp />
@@ -117,13 +128,13 @@ Importamos el hook de useState y creamos un estado del tipo booleano para indica
 ```
 encima o no.
 
-**Archivo:** `/reactjs-higher-order-components-hover-lab/src/hoc/withHover.js`
+**Archivo:** `/reactjs-higher-order-components-hover-lab/src/hoc/withHover.tsx`
 
 ```tsx
-import { useState } from 'react';
+import { useState, type ComponentType } from 'react'
 
-const withHover = (WrappedCmp) => {
-  return (props) => {
+const withHover = <P extends object>(WrappedCmp: ComponentType<P>) => {
+  return (props: P) => {
     const [isMouseOn, setIsMouseOn] = useState(false);
 
         return (
@@ -139,13 +150,13 @@ export default withHover;
 Ahora vamos a añadir dos eventos onMouseEnter y onMouseLeave para cambiar este estado de
 valor.
 
-**Archivo:** `/reactjs-higher-order-components-hover-lab/src/hoc/withHover.js`
+**Archivo:** `/reactjs-higher-order-components-hover-lab/src/hoc/withHover.tsx`
 
 ```tsx
-import { useState } from 'react';
+import { useState, type ComponentType } from 'react'
 
-const withHover = (WrappedCmp) => {
-  return (props) => {
+const withHover = <P extends object>(WrappedCmp: ComponentType<P>) => {
+  return (props: P) => {
     const [isMouseOn, setIsMouseOn] = useState(false);
 
         return (
@@ -168,13 +179,13 @@ vamos a hacer que se ajuste al contenido de la etiqueta con la propiedad width: 
 
 Solo tenemos que asignarle el objeto con los estilos a la propiedad style del div.
 
-**Archivo:** `/reactjs-higher-order-components-hover-lab/src/hoc/withHover.js`
+**Archivo:** `/reactjs-higher-order-components-hover-lab/src/hoc/withHover.tsx`
 
 ```tsx
-import { useState } from 'react';
+import { useState, type ComponentType } from 'react'
 
-const withHover = (WrappedCmp) => {
-  return (props) => {
+const withHover = <P extends object>(WrappedCmp: ComponentType<P>) => {
+  return (props: P) => {
     const [isMouseOn, setIsMouseOn] = useState(false);
 
 const styles = {
@@ -205,7 +216,7 @@ un componente BotonWithHover que se obtiene de envolver el componente Boton con 
 import withHover from '../hoc/withHover';
 import Boton from './Boton';
 
-const App = () => {
+const App = (): JSX.Element => {
   const BotonWithHover = withHover(Boton);
 
     return (
@@ -226,7 +237,7 @@ las propiedades que necesita.
 import withHover from '../hoc/withHover';
 import Boton from './Boton';
 
-const App = () => {
+const App = (): JSX.Element => {
   const BotonWithHover = withHover(Boton);
 
     return (
@@ -249,13 +260,13 @@ está pasando al componente Boton.
 Para hacérselas llegar al componente Boton y que de esta forma se muestre el texto del botón y se
 ejecute la función al pulsar sobre el, le vamos a pasar al WrappedCmp todas las propiedades.
 
-**Archivo:** `/reactjs-higher-order-components-hover-lab/src/hoc/withHover.js`
+**Archivo:** `/reactjs-higher-order-components-hover-lab/src/hoc/withHover.tsx`
 
 ```tsx
-import { useState } from 'react';
+import { useState, type ComponentType } from 'react'
 
-const withHover = (WrappedCmp) => {
-  return (props) => {
+const withHover = <P extends object>(WrappedCmp: ComponentType<P>) => {
+  return (props: P) => {
 
 const [isMouseOn, setIsMouseOn] = useState(false);
 

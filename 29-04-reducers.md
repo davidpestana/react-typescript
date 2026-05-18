@@ -15,7 +15,9 @@ interfaz de usuario con los nuevos datos.
 ```tsx
 import { ACCION } from './action-types';
 
-export default function reducer(state = 'hola mundo', action) {
+type Accion = { type: typeof ACCION };
+
+export default function reducer(state = 'hola mundo', action: Accion): string {
   switch (action.type) {
     case ACCION:
       return state + '!';

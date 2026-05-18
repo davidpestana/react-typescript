@@ -8,7 +8,7 @@
 
 ---
 
-El proyecto que nos genera la herramienta CRA tiene la siguiente estructura:
+El proyecto que nos genera CRA con la plantilla **TypeScript** (`--template typescript`) tiene una estructura similar a la siguiente:
 
 - node_modules: carpeta donde se encuentran todas las dependencias del proyecto.
 
@@ -25,20 +25,17 @@ llevarlo a producción.
 
 ◦ App.css: archivo de estilos para el componente App.
 
-◦ App.test.js: archivo de testing del componente App.
+◦ App.test.tsx: archivo de testing del componente App.
 
-◦ App.js: componente App de la aplicación, en este caso es el componente raíz.
+◦ App.tsx: componente App de la aplicación, en este caso es el componente raíz.
 
 ◦ index.css: archivo de estilos globales.
 
-◦ index.js: archivo de entrada a la aplicación, encargado de indicar donde se tiene que
-inyectar el componente raíz dentro de la página HTML.
+◦ main.tsx (o index.tsx): archivo de entrada; indica dónde se monta el componente raíz en el HTML.
 
-◦ serviceWorker.js: archivo en el que configurar algunas funcionalidades de las PWAs como el
-uso de notificaciones.
+◦ react-app-env.d.ts: referencias de tipos del entorno Create React App.
 
-◦ setupTests.js: archivo en el que podemos añadir nuestros propios métodos de expect para
-los tests.
+◦ setupTests.ts: utilidades compartidas para los tests.
 
 - .gitignore: archivo que le indica a Git que archivos y carpetas tiene que ignorar.
 

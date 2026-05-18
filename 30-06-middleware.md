@@ -24,22 +24,18 @@ acceder, tanto al store como al action, por lo que podremos mostrar por consola 
 disparado y cual es el nuevo estado.
 
 ```tsx
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, type Middleware } from 'redux';
 import miReducer from './reducer';
 
 export default function configStore() {
-  const logger = (store) => {
-    return (next) => {
-      return (action) => {
-        console.log('Dispatched action: ', action);
-        const res = next(action);
-        console.log('Next state: ', store.getState());
-        return res;
-      }
-    }
-  }
+  const logger: Middleware = (store) => (next) => (action) => {
+    console.log('Dispatched action: ', action);
+    const res = next(action);
+    console.log('Next state: ', store.getState());
+    return res;
+  };
 
-    return createStore(miReducer, applyMiddleware(logger));
+  return createStore(miReducer, applyMiddleware(logger));
 }
 ```
 Y de esta forma, cada vez que se lance una acción, nos va a mostrar la acción despachada y el

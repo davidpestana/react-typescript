@@ -34,7 +34,7 @@ aplicación en distintos idiomas.
 ```tsx
 import React from 'react'
 
-export const LangCtx = React.createContext(null)
+export const LangCtx = React.createContext<{ bienvenida: string } | null>(null)
 
 const traducciones = {
   es: {
@@ -89,7 +89,13 @@ función que cambia de lenguaje.
 ```tsx
 import React from 'react';
 
-const SelectLang = ({langs, onChangeLang, selectedLang}) => {
+type SelectLangProps = {
+  langs: string[]
+  onChangeLang: (lang: string) => void
+  selectedLang: string
+}
+
+const SelectLang = ({ langs, onChangeLang, selectedLang }: SelectLangProps) => {
   const optionsLang = langs.map((l, pos) => <option key={pos} value={l}>{l.toUpperCase()}</option>)
 
     return (
@@ -110,7 +116,7 @@ añadiremos el estado que guarda el lenguaje seleccionado.
 import React, { useState } from 'react'
 import SelectLang from './SelectLang'
 
-export const LangCtx = React.createContext(null)
+export const LangCtx = React.createContext<{ bienvenida: string } | null>(null)
 
 const traducciones = {
   es: {
@@ -175,7 +181,7 @@ import React, { useState } from 'react'
 import SelectLang from './SelectLang'
 import Header from './Header'
 
-export const LangCtx = React.createContext(null)
+export const LangCtx = React.createContext<{ bienvenida: string } | null>(null)
 
 const traducciones = {
   es: {

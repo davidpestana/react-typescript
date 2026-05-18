@@ -73,7 +73,7 @@ import { Routes, Route } from 'react-router-dom';
 import Inicio from './Inicio';
 import NuevoUsuario from './NuevoUsuario';
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <div>
       <h1>React Router v6</h1>
@@ -128,7 +128,7 @@ import Header from './Header';
 import Inicio from './Inicio';
 import NuevoUsuario from './NuevoUsuario';
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <div>
       <h1>React Router v6</h1>
@@ -237,7 +237,7 @@ import Header from './Header';
 import Inicio from './Inicio';
 import NuevoUsuario from './NuevoUsuario';
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <div>
       <h1>React Router v6</h1>
@@ -271,7 +271,7 @@ import Header from './Header';
 import Inicio from './Inicio';
 import NuevoUsuario from './NuevoUsuario';
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <div>
 
@@ -440,7 +440,7 @@ import Inicio from './Inicio';
 import NuevoUsuario from './NuevoUsuario';
 import Usuario from './Usuario';
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <div>
       <h1>React Router v6</h1>
@@ -537,7 +537,7 @@ import Inicio from './Inicio';
 import NuevoUsuario from './NuevoUsuario';
 import Usuario from './Usuario';
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <div>
       <h1>React Router v6</h1>
@@ -634,7 +634,7 @@ import NuevoUsuario from './NuevoUsuario';
 import Usuario from './Usuario';
 import Error from './Error';
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <div>
       <h1>React Router v6</h1>

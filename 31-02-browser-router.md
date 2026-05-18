@@ -17,15 +17,18 @@ Este componente se va a encargar de interactuar con la API del historial del nav
 poner las URLs en la barra de direcciones, además de ir añadiendo/eliminando estas direcciones en
 la pila del historial.
 
-**Archivo:** `/src/app.js`
+**Archivo:** `/src/main.tsx`
 
 ```tsx
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './components/App';
 
-createRoot(document.getElementById('root')).render(<BrowserRouter><App /><
-/BrowserRouter>);
+createRoot(document.getElementById('root')!).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);
 ```
 Una vez envuelta nuestra nuestra aplicación con ese componente, todos aquellos componentes que
 se encuentren por debajo de este en el árbol de componentes, serán capaces de usar las rutas.

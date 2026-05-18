@@ -19,8 +19,12 @@ que usaremos para emitir las acciones que le llegarán al reducer.
 ```tsx
 const initialState = {}
 
-function reducer(state, action) {
+type State = typeof initialState
+type Action = { type: 'ejemplo'; payload?: string }
+
+function reducer(state: State, action: Action): State {
   // ...
+  return state
 }
 
 const [state, dispatch] = useReducer(reducer, initialState)

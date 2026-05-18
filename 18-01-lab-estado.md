@@ -119,7 +119,7 @@ Y antes de añadirle la lógica al componente vamos a mostrarlo en el componente
 ```tsx
 import PanelCodigoSecreto from './PanelCodigoSecreto';
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <div>
       <PanelCodigoSecreto />
@@ -130,16 +130,16 @@ const App = () => {
 export default App
 ```
 Si nos fijamos, los estilos no se están aplicando, esto se debe a que no los hemos importado en
-nuestra aplicación. Tenemos que realizar la importación en el index.js.
+nuestra aplicación. Tenemos que realizar la importación en el main.tsx.
 
-**Archivo:** `/reactjs-estado-lab/src/index.js`
+**Archivo:** `/reactjs-estado-lab/src/main.tsx`
 
 ```tsx
 import { createRoot } from 'react-dom/client';
 import App from './components/App';
 import './style.css';
 
-createRoot(document.getElementById('root')).render(<App />);
+createRoot(document.getElementById('root')!).render(<App />);
 ```
 Ahora ya deberían de estar aplicándose los estilos correctamente.
 

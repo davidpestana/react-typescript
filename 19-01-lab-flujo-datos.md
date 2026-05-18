@@ -65,7 +65,7 @@ En tu componente padre actual (por ejemplo, `App.tsx`) añade un estado con el t
 import { useState } from 'react'
 import ClickCounterButton from './components/ClickCounterButton'
 
-const App = () => {
+const App = (): JSX.Element => {
   const [totalClicks, setTotalClicks] = useState(0)
 
   const handleChildClickCountChange = (totalClicksFromChild: number) => {

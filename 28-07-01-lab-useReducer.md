@@ -84,7 +84,7 @@ const initialState = {
   posY: (window.innerHeight / 2) - 50
 }
 
-function reducer(state, action) {
+function reducer(state: typeof initialState, action: { type: string }) {
   switch(action.type) {
     case 'ArrowLeft':
       return {...state, posX: `${parseInt(state.posX)-10}px`};
@@ -129,7 +129,7 @@ const initialState = {
   posY: (window.innerHeight / 2) - 50
 }
 
-function reducer(state, action) {
+function reducer(state: typeof initialState, action: { type: string }) {
   switch(action.type) {
     case 'ArrowLeft':
       return {...state, posX: `${parseInt(state.posX)-10}px`};
@@ -174,7 +174,7 @@ const initialState = {
   posY: (window.innerHeight / 2) - 50
 }
 
-function reducer(state, action) {
+function reducer(state: typeof initialState, action: { type: string }) {
   switch(action.type) {
     case 'ArrowLeft':
       return {...state, posX: `${parseInt(state.posX)-10}px`};
@@ -232,7 +232,7 @@ const initialState = {
   posY: (window.innerHeight / 2) - 50
 }
 
-function reducer(state, action) {
+function reducer(state: typeof initialState, action: { type: string }) {
   switch(action.type) {
     case 'ArrowLeft':
       return {...state, posX: `${parseInt(state.posX)-10}px`};

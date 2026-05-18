@@ -51,6 +51,27 @@ también como dependencias de desarrollo:
 ```tsx
 $ npm install --save-dev babel-loader css-loader style-loader html-webpack-plugin
 ```
+Instalamos **TypeScript** y los tipos de React:
+
+```tsx
+$ npm install --save-dev typescript @babel/preset-typescript @types/react @types/react-dom
+```
+Crea también un `tsconfig.json` en la raíz del proyecto:
+
+```tsx
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}
+```
 Una vez que tenemos instaladas todas las dependencias que necesitaremos durante el curso, vamos
 a empezar a configurar webpack y a explicar para que sirven estas dependencias.
 
@@ -83,7 +104,7 @@ const entryPath = path.join(__dirname, 'src'),
       outputPath = path.join(__dirname, 'dist');
 
 module.exports = {
-  entry: path.join(entryPath, 'index.js'),
+  entry: path.join(entryPath, 'main.tsx'),
   output: {
      path: outputPath,
      filename: 'bundle.js'
@@ -105,7 +126,7 @@ const entryPath = path.join(__dirname, 'src'),
 
 module.exports = {
   mode: 'development',
-  entry: path.join(entryPath, 'index.js'),
+  entry: path.join(entryPath, 'main.tsx'),
   output: {
     path: outputPath,
     filename: 'bundle.js'
@@ -121,8 +142,8 @@ pasaremos como valores objetos donde definiremos que loaders queremos utilizar y
 archivos queremos utilizarlos.
 
 Empezaremos indicándole que tiene que aplicar el babel-loader sobre los archivos que tengan la
-extensión js o jsx. Este loader se encargará de transformar el código de TSX a JavaScript, y de pasar
-el código de JavaScript moderno a código más antiguo para que los navegadores puedan ejecutarlo
+extensión js o jsx. Este loader se encargará de transformar el código TSX/TypeScript a JavaScript compatible con navegadores, y de pasar
+el código moderno a código más antiguo para que los navegadores puedan ejecutarlo
 sin problemas.
 
 Cada una de las reglas en las que pondremos los loaders tienen una serie de propiedades que
@@ -145,7 +166,7 @@ const entryPath = path.join(__dirname, 'src'),
 
 module.exports = {
   mode: 'development',
-  entry: path.join(entryPath, 'index.js'),
+  entry: path.join(entryPath, 'main.tsx'),
   output: {
      path: outputPath,
      filename: 'bundle.js'
@@ -153,7 +174,7 @@ module.exports = {
   module: {
      rules: [
        {
-          test: /\.(js|jsx)$/,
+          test: /\.(ts|tsx)$/,
           exclude: /node_modules/,
           use: 'babel-loader'
        },
@@ -173,7 +194,7 @@ indicarle que utilice los presets de @babel/preset-env y @babel/preset-react, ad
 JavaScript a otras versiones más antiguas del lenguaje para que se pueda ejecutar en los
 distintos navegadores.
 
-- @babel/preset-react: conjunto de plugins que se encargan de transformar el TSX en JavaScript.
+- @babel/preset-react: conjunto de plugins que se encargan de transformar el TSX en JavaScript ejecutable.
 
 ◦ La opción runtime: automatic la añadimos para no tener que importar React en los
 distintos componentes de la aplicación.
@@ -188,6 +209,7 @@ hook useEffect.
 {
     "presets": [
        "@babel/preset-env",
+       "@babel/preset-typescript",
        [
          "@babel/preset-react",
          {
@@ -223,7 +245,7 @@ const entryPath = path.join(__dirname, 'src'),
 
 module.exports = {
   mode: 'development',
-  entry: path.join(entryPath, 'index.js'),
+  entry: path.join(entryPath, 'main.tsx'),
   output: {
      path: outputPath,
      filename: 'bundle.js'
@@ -231,7 +253,7 @@ module.exports = {
   module: {
      rules: [
        {
-          test: /\.(js|jsx)$/,
+          test: /\.(ts|tsx)$/,
           exclude: /node_modules/,
           use: 'babel-loader'
        },
@@ -259,7 +281,7 @@ const entryPath = path.join(__dirname, 'src'),
 
 module.exports = {
   mode: 'development',
-  entry: path.join(entryPath, 'index.js'),
+  entry: path.join(entryPath, 'main.tsx'),
   output: {
      path: outputPath,
      filename: 'bundle.js'
@@ -267,7 +289,7 @@ module.exports = {
   module: {
      rules: [
        {
-          test: /\.(js|jsx)$/,
+          test: /\.(ts|tsx)$/,
           exclude: /node_modules/,
           use: 'babel-loader'
        },
@@ -308,7 +330,7 @@ const entryPath = path.join(__dirname, 'src'),
 
 module.exports = {
   mode: 'development',
-  entry: path.join(entryPath, 'index.js'),
+  entry: path.join(entryPath, 'main.tsx'),
   output: {
      path: outputPath,
      filename: 'bundle.js'
@@ -316,7 +338,7 @@ module.exports = {
   module: {
      rules: [
        {
-          test: /\.(js|jsx)$/,
+          test: /\.(ts|tsx)$/,
           exclude: /node_modules/,
           use: 'babel-loader'
        },
@@ -356,7 +378,7 @@ const entryPath = path.join(__dirname, 'src'),
 
 module.exports = {
   mode: 'development',
-  entry: path.join(entryPath, 'index.js'),
+  entry: path.join(entryPath, 'main.tsx'),
   output: {
      path: outputPath,
      filename: 'bundle.js'
@@ -364,7 +386,7 @@ module.exports = {
   module: {
      rules: [
        {
-          test: /\.(js|jsx)$/,
+          test: /\.(ts|tsx)$/,
           exclude: /node_modules/,
           use: 'babel-loader'
        },
@@ -408,7 +430,7 @@ const entryPath = path.join(__dirname, 'src'),
 
 module.exports = {
   mode: 'development',
-  entry: path.join(entryPath, 'index.js'),
+  entry: path.join(entryPath, 'main.tsx'),
   output: {
      path: outputPath,
      filename: 'bundle.js'
@@ -416,7 +438,7 @@ module.exports = {
   module: {
      rules: [
        {
-          test: /\.(js|jsx)$/,
+          test: /\.(ts|tsx)$/,
           exclude: /node_modules/,
           use: 'babel-loader'
        },
@@ -443,7 +465,7 @@ module.exports = {
        static: outputPath
     },
     resolve: {
-       extensions: ['.js', '.tsx']
+       extensions: ['.ts', '.tsx']
     }
 }
 ```
@@ -475,18 +497,18 @@ indicar donde se tiene que montar el componente raíz de la aplicación.
 En la configuración de webpack una de las primeras opciones que hemos añadido ha sido la del
 punto de entrada a la aplicación, y todavía no tenemos este archivo, así que vamos a crearlo.
 ```tsx
-Crearemos dentro de src un archivo index.js en el que vamos a importar createRoot y lo
+Crearemos dentro de src un archivo main.tsx en el que vamos a importar createRoot y lo
 ```
 utilizaremos para renderizar un componente App, que vamos a crear después, dentro del div que
 hay en el index.html con el identificador root.
 
-**Archivo:** `/reactjs-proyecto-inicial-lab/src/index.js`
+**Archivo:** `/reactjs-proyecto-inicial-lab/src/main.tsx`
 
 ```tsx
 import { createRoot } from 'react-dom/client';
 import App from './components/App';
 
-createRoot(document.getElementById('root')).render(<App />);
+createRoot(document.getElementById('root')!).render(<App />);
 ```
 Ahora vamos a crear nuestro primer componente, un archivo App.tsx dentro de la carpeta
 src/components. En un laboratorio posterior veremos que hace el siguiente código.
@@ -494,7 +516,7 @@ src/components. En un laboratorio posterior veremos que hace el siguiente códig
 **Archivo:** `/reactjs-proyecto-inicial-lab/src/components/App.tsx`
 
 ```tsx
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <div>
       <h1>Hola mundo!!!</h1>
@@ -508,14 +530,14 @@ Y para terminar, vamos a dejar un archivo style.css dentro de la carpeta src que
 en el punto de entrada. Este archivo lo dejaremos creado para ver el tema de estilos con CSS en un
 laboratorio más adelante.
 
-**Archivo:** `/reactjs-proyecto-inicial-lab/src/index.js`
+**Archivo:** `/reactjs-proyecto-inicial-lab/src/main.tsx`
 
 ```tsx
 import { createRoot } from 'react-dom/client';
 import App from './components/App';
 import './style.css';
 
-createRoot(document.getElementById('root')).render(<App />);
+createRoot(document.getElementById('root')!).render(<App />);
 ```
 Ya tenemos todos los archivos del proyecto, pero nos falta algo importante, probar que todo lo que
 hemos hecho hasta ahora funcione. Para ello tenemos que levantar la aplicación con el servidor de
@@ -540,7 +562,7 @@ del modo production.
     "name": "reactjs-proyecto-inicial-lab",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "main.tsx",
     "scripts": {
        "start": "webpack serve",
        "build": "webpack --mode=development",

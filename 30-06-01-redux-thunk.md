@@ -21,21 +21,17 @@ Una vez instalado, como es un middleware, lo tendremos que pasar en la función 
 applyMiddleware que se encuentra en el archivo de configuración del store.
 
 ```tsx
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, type Middleware } from 'redux';
 import miReducer from './reducer';
 import thunk from 'redux-thunk';
 
 export default function configStore() {
-  const logger = (store) => {
-    return (next) => {
-      return (action) => {
-        console.log('Dispatched action: ', action);
-        const res = next(action);
-        console.log('Next state: ', store.getState());
-        return res;
-      }
-    }
-  }
+  const logger: Middleware = (store) => (next) => (action) => {
+    console.log('Dispatched action: ', action);
+    const res = next(action);
+    console.log('Next state: ', store.getState());
+    return res;
+  };
 
     return createStore(miReducer, applyMiddleware(logger, thunk));
 }

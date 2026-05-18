@@ -15,7 +15,12 @@ Para añadir los valores por defecto, hay que desestructurar las propiedades y a
 valores.
 
 ```tsx
-const MiComponente = ({ miNum = 0, miTexto = 'Hola mundo!' }) => {
+type MiComponenteProps = {
+  miNum?: number
+  miTexto?: string
+}
+
+const MiComponente = ({ miNum = 0, miTexto = 'Hola mundo!' }: MiComponenteProps) => {
   // Código aquí
 }
 ```

@@ -23,9 +23,9 @@ Ahora vamos a levantar el servidor de desarrollo con el comando:
 ```tsx
 $ npm start
 ```
-Empezamos por crear el archivo con los datos de las noticias a mostrar en src/data/noticias.json.
+Empezamos por crear el archivo con los datos de las noticias a mostrar en src/data/noticias.jsonon.
 
-**Archivo:** `/reactjs-listas-lab/src/data/noticias.json`
+**Archivo:** `/reactjs-listas-lab/src/data/noticias.jsononon`
 
 ```tsx
 [
@@ -79,7 +79,13 @@ vamos a mostrar.
 **Archivo:** `/reactjs-listas-lab/src/components/Noticia.tsx`
 
 ```tsx
-const Noticia = ({noticia}) => {
+type NoticiaData = {
+  id: number
+  titulo: string
+  contenido: string
+}
+
+const Noticia = ({ noticia }: { noticia: NoticiaData }) => {
   return (
     <div>
       <h2>{noticia.titulo}</h2>
@@ -98,7 +104,7 @@ del JSON, que será una simple importación del archivo.
 ```tsx
 import noticias from '../data/noticias.json'
 
-const App = () => {
+const App = (): JSX.Element => {
 
 return (
   <div>
@@ -118,7 +124,7 @@ vamos a crear un array de componentes Noticia.
 import noticias from '../data/noticias.json'
 import Noticia from './Noticia'
 
-const App = () => {
+const App = (): JSX.Element => {
 
 return (
   <div>
@@ -140,7 +146,7 @@ identificador de cada una de las noticias.
 import noticias from '../data/noticias.json'
 import Noticia from './Noticia'
 
-const App = () => {
+const App = (): JSX.Element => {
 
     return (
       <div>

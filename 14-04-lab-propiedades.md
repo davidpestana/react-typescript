@@ -44,7 +44,7 @@ const Sugus = () => {
 
 export default Sugus
 ```
-También le añadiremos unos estilos desde JavaScript, aplicándolos al atributo style.
+También le añadiremos unos estilos como objeto de estilos, aplicándolos al atributo style.
 
 **Archivo:** `/reactjs-propiedades-lab/src/components/Sugus.tsx`
 
@@ -96,7 +96,7 @@ veces, una por cada sugus que existe.
 ```tsx
 import Sugus from "./Sugus"
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <div>
       <Sugus />
@@ -120,7 +120,7 @@ se pinten estos.
 ```tsx
 import Sugus from "./Sugus"
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <div>
       <Sugus sabor="limón" color="#FDE23A" />
