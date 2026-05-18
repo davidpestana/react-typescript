@@ -1,3 +1,6 @@
+# Solo local: método de edición, borradores, PDFs (no se publica en GitHub)
+_local/
+
 node_modules/
 .env
 .env.local

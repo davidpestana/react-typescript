@@ -2,8 +2,6 @@
 
 Manual en Markdown con **105 capítulos**: desde qué es React hasta React Router, pasando por Hooks, Redux y TypeScript/TSX. Cada archivo tiene navegación anterior/siguiente.
 
-Repositorio canónico: [github.com/davidpestana/react-typescript](https://github.com/davidpestana/react-typescript). La raíz de este repo **es** el curso (capítulos `*.md`, `ejemplos/`, `images/`). Material antiguo o borradores están en [`legacy/`](legacy/).
-
 ## Cómo seguir el curso
 
 1. **Haz un fork** de este repositorio en tu cuenta de GitHub.
